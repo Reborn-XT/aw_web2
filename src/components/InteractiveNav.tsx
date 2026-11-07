@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { GalleryTransition } from './GalleryTransition';
+import { asset } from '../utils/asset';
 
 const navItems = [
   {
     id: 'gallery',
     label: 'Gallery',
     path: '/gallery',
-    artistImg: '/artist_poses/gallery_pose1.png',
-    navImg: '/nav_items/pandas.jpg',
+    artistImg: asset('/artist_poses/gallery_pose1.png'),
+    navImg: asset('/nav_items/pandas.jpg'),
     position: { top: '24%', left: '26%' },
     rotation: -4,
     frameType: 'brush',
@@ -19,8 +20,8 @@ const navItems = [
     id: 'about',
     label: 'About The Artist',
     path: '/about',
-    artistImg: '/artist_poses/about_pose1.png',
-    navImg: '/nav_items/about.jpg',
+    artistImg: asset('/artist_poses/about_pose1.png'),
+    navImg: asset('/nav_items/about.jpg'),
     position: { top: '24%', left: '74%' },
     rotation: 5,
     frameType: 'gold',
@@ -30,8 +31,8 @@ const navItems = [
     id: 'review',
     label: 'Collector Stories',
     path: '/stories',
-    artistImg: '/artist_poses/review_pose1.png',
-    navImg: '/nav_items/custom.jpeg',
+    artistImg: asset('/artist_poses/review_pose1.png'),
+    navImg: asset('/nav_items/custom.jpeg'),
     position: { top: '70%', left: '28%' },
     rotation: 3,
     frameType: 'wood',
@@ -41,8 +42,8 @@ const navItems = [
     id: 'custom',
     label: 'Custom Commission',
     path: '/custom-work',
-    artistImg: '/artist_poses/custom_order_pose1.png',
-    navImg: '/nav_items/easel.png',
+    artistImg: asset('/artist_poses/custom_order_pose1.png'),
+    navImg: asset('/nav_items/easel.png'),
     position: { top: '68%', left: '74%' },
     rotation: -5,
     frameType: 'canvas',
@@ -63,10 +64,10 @@ const getFrameStyle = (type: string) => {
       };
     case 'brush':
       return {
-        WebkitMaskImage: 'url(/brush-mask.svg)',
+        WebkitMaskImage: `url(${asset('/brush-mask.svg')})`,
         WebkitMaskSize: '100% 100%',
         WebkitMaskRepeat: 'no-repeat',
-        maskImage: 'url(/brush-mask.svg)',
+        maskImage: `url(${asset('/brush-mask.svg')})`,
         maskSize: '100% 100%',
         maskRepeat: 'no-repeat',
         filter: 'drop-shadow(0px 12px 24px rgba(0,0,0,0.6))',
@@ -130,9 +131,10 @@ const getPlaqueComponent = (type: string, label: string) => {
 export const InteractiveNav = () => {
   const [hoveredSection, setHoveredSection] = useState('default');
 
+  const defaultPose = asset('/artist_poses/default_pose1.png');
   const currentImg = hoveredSection === 'default'
-    ? '/artist_poses/default_pose1.png'
-    : navItems.find(item => item.id === hoveredSection)?.artistImg || '/artist_poses/default_pose1.png';
+    ? defaultPose
+    : navItems.find(item => item.id === hoveredSection)?.artistImg || defaultPose;
 
   return (
     <section className="py-20 md:py-32 px-6 md:px-12 bg-[var(--bg)] border-y border-[rgba(225,131,141,0.12)] overflow-hidden relative min-h-[700px] flex items-center">

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { asset } from '../utils/asset';
 
 interface PreloaderProps {
   onComplete: () => void;
@@ -66,7 +67,7 @@ export const Preloader = ({ onComplete }: PreloaderProps) => {
           >
             {/* Logo */}
             <motion.img
-              src="/logok.svg"
+              src={asset('/logok.svg')}
               alt="Awanti"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}

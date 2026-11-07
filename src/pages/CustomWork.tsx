@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ArrowRight, Instagram, ExternalLink, Copy, Check, Sparkles, FileText, MessageCircle } from 'lucide-react';
-import { INSTAGRAM_URL } from '../data';
+import { INSTAGRAM_URL, asset } from '../data';
 
 // ── GOOGLE FORM CONFIGURATION ─────────────────────────────────────────────
 // Replace this with your Google Form embed URL (ensure it ends with /viewform?embedded=true)
@@ -40,7 +40,7 @@ export const CustomWork = () => {
           className="absolute inset-0 z-0"
         >
           <img
-            src="/products/custom/ghibli-beach-portrait.jpg"
+            src={asset('/products/custom/ghibli-beach-portrait.jpg')}
             alt="Custom Artwork Commission"
             className="absolute inset-0 w-full h-full object-cover brightness-[0.25]"
           />

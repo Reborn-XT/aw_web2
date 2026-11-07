@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Instagram, X, Menu } from 'lucide-react';
 import { INSTAGRAM_URL } from '../data';
+import { asset } from '../utils/asset';
 
 const NAV_LINKS = [
   { to: '/',            label: 'Home'        },
@@ -55,7 +56,7 @@ export const Navbar = () => {
               }}
             />
             <img
-              src="/logok.svg"
+              src={asset('/logok.svg')}
               alt="Awanti"
               className="h-10 md:h-12 w-auto object-contain relative z-10 transition-transform duration-300 group-hover:scale-105"
               style={{

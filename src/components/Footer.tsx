@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Instagram, Mail } from 'lucide-react';
 import { INSTAGRAM_URL } from '../data';
+import { asset } from '../utils/asset';
 
 const NAV = [
   { to: '/gallery',     label: 'Gallery'     },
@@ -42,7 +43,7 @@ export const Footer = () => (
           }}
         />
         <img
-          src="/logok.svg"
+          src={asset('/logok.svg')}
           alt="Awanti"
           className="h-12 md:h-14 w-auto object-contain relative z-10 transition-transform duration-300 group-hover:scale-105"
           style={{

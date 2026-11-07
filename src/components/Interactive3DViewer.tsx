@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, RotateCw, ExternalLink, Sparkles, Layers, Eye, ShieldCheck } from 'lucide-react';
+import { asset } from '../utils/asset';
 
 interface Interactive3DViewerProps {
   modelId?: string;
@@ -104,7 +105,7 @@ export const Interactive3DViewer: React.FC<Interactive3DViewerProps> = ({
         ) : (
           <div className="w-full h-full relative group">
             <img
-              src="/products/3d-mini-portrait.jpg"
+              src={asset('/products/3d-mini-portrait.jpg')}
               alt="Hand-Painted 3D Mini Portrait"
               className="w-full h-full object-cover brightness-95"
             />

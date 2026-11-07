@@ -19,7 +19,7 @@ import { Hero } from '../components/Hero';
 import { InteractiveNav } from '../components/InteractiveNav';
 import { Interactive3DViewer } from '../components/Interactive3DViewer';
 import { ThreeDModal } from '../components/ThreeDModal';
-import { PAINTINGS, STORIES, INSTAGRAM_URL } from '../data';
+import { PAINTINGS, STORIES, INSTAGRAM_URL, asset } from '../data';
 
 export const Home: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<'all' | 'landscape' | 'pop' | 'mini'>('all');
@@ -389,7 +389,7 @@ export const Home: React.FC = () => {
               <div className="bg-[#1b161f] border border-[rgba(225,131,141,0.25)] p-4 sm:p-6 rounded-sm shadow-[0_30px_70px_rgba(0,0,0,0.85)]">
                 <div className="relative aspect-square overflow-hidden rounded-xs bg-black">
                   <img
-                    src="/products/Italian-style town.jpg"
+                    src={asset('/products/Italian-style town.jpg')}
                     alt="Italian Town Masterpiece"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -479,7 +479,7 @@ export const Home: React.FC = () => {
                 <div className="bg-[#1b1620] border border-[rgba(225,131,141,0.3)] p-4 rounded-sm shadow-2xl">
                   <div className="relative aspect-[4/5] overflow-hidden rounded-xs bg-black">
                     <img
-                      src="/products/custom/ghibli-beach-portrait.jpg"
+                      src={asset('/products/custom/ghibli-beach-portrait.jpg')}
                       alt="Custom Ghibli Style Commission"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />

@@ -1,4 +1,7 @@
 
+import { asset } from './utils/asset';
+export { asset } from './utils/asset';
+
 export type Painting = {
   id: number;
   title: string;
@@ -34,10 +37,10 @@ export const HERO_PAINTINGS = [
   { img: '/hero/showcase-3.jpeg',     title: 'Guiding Light',       cat: 'Silhouette' },
   { img: '/hero/showcase-4.jpeg',     title: 'Coastal Memories',    cat: 'Portrait' },
   { img: '/hero/showcase-5.jpeg',     title: 'Sisters in Bloom',    cat: 'Portrait' },
-];
+].map(item => ({ ...item, img: asset(item.img) }));
 
 /* ── Full painting inventory ─────────────────────────────────────── */
-export const PAINTINGS: Painting[] = [
+export const PAINTINGS: Painting[] = ([
   { id: 1,  title: 'Serene Nature',       price: 249,  size: '4×4 in',  medium: 'Acrylic',     cat: 'Mini',       status: 'Available',  img: '/products/Serene Nature Art.jpg',          featured: false },
   { id: 2,  title: 'Sunset Silhouette',   price: 299,  size: '4×4 in',  medium: 'Acrylic',     cat: 'Mini',       status: 'Sold Out',   img: '/products/Sunset Silhouette Art.jpg',      featured: false },
   { id: 3,  title: 'Twilight Landscape',  price: 299,  size: '4×4 in',  medium: 'Watercolour', cat: 'Mini',       status: 'Sold Out',   img: '/products/Twilight Landscape Art.jpg',     featured: false },
@@ -66,7 +69,7 @@ export const PAINTINGS: Painting[] = [
   { id: 26, title: 'Mochi Cats Love',      price: 499,  size: '6×6 in',  medium: 'Acrylic',     cat: 'Cute',       status: 'Sold Out',   img: '/products/custom/mochi-cats-love.jpg',     featured: false },
   { id: 27, title: 'Sunset Promise',      price: 799,  size: '6×6 in',  medium: 'Acrylic',     cat: 'Silhouette', status: 'Sold Out',   img: '/products/custom/couple-sunset-dheeraj.jpg', featured: false },
   { id: 28, title: 'Ghibli Father & Daughter', price: 3499, size: '8×10 in', medium: 'Acrylic', cat: 'Commission', status: 'Sold Out',   img: '/products/custom/ghibli-father-daughter.png', featured: false },
-];
+] as Painting[]).map(p => ({ ...p, img: asset(p.img) }));
 
 /* ── Available paintings (for Shop page teaser) ──────────────────── */
 export const AVAILABLE = PAINTINGS.filter(p => p.status === 'Available');
@@ -147,7 +150,7 @@ export const UPCOMING_3D_PROJECT = {
   badge: 'Under Development',
   sketchfabId: '7d39ef80acc24a3db30155b978010ac4',
   embedUrl: 'https://sketchfab.com/models/7d39ef80acc24a3db30155b978010ac4/embed?autostart=1&transparent=1&ui_theme=dark',
-  thumbnail: '/products/3d-mini-portrait.jpg',
+  thumbnail: asset('/products/3d-mini-portrait.jpg'),
   modelCredit: {
     title: 'Chibi artist holding paintbrush and palette',
     author: 'LiquidRaven1346',
