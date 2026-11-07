@@ -28,8 +28,8 @@ const navItems = [
   },
   {
     id: 'review',
-    label: 'Reviews & Stories',
-    path: '/reviews',
+    label: 'Collector Stories',
+    path: '/stories',
     artistImg: '/artist_poses/review_pose1.png',
     navImg: '/nav_items/custom.jpeg',
     position: { top: '70%', left: '28%' },

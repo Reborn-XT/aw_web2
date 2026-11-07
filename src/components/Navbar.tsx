@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { to: '/gallery',     label: 'Gallery'     },
   { to: '/shop',        label: 'Shop'        },
   { to: '/custom-work', label: 'Custom Work' },
-  { to: '/reviews',     label: 'Reviews'     },
+  { to: '/stories',     label: 'Stories'     },
   { to: '/about',       label: 'About'       },
 ];
 
@@ -42,14 +42,24 @@ export const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
 
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
+          {/* Logo with faint ambient glow */}
+          <Link to="/" className="relative flex items-center group py-2">
+            {/* Ambient soft glow backdrop */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 m-auto w-32 h-12 rounded-full pointer-events-none transition-opacity duration-500 opacity-80 group-hover:opacity-100"
+              style={{
+                background: 'radial-gradient(ellipse at center, rgba(245, 235, 225, 0.22) 0%, rgba(225, 131, 141, 0.2) 45%, rgba(225, 131, 141, 0.05) 75%, transparent 100%)',
+                filter: 'blur(10px)',
+                transform: 'scale(1.2)',
+              }}
+            />
             <img
               src="/logok.svg"
               alt="Awanti"
-              className="h-10 md:h-12 w-auto object-contain relative z-10 transition-transform duration-300 hover:scale-105"
+              className="h-10 md:h-12 w-auto object-contain relative z-10 transition-transform duration-300 group-hover:scale-105"
               style={{
-                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.5)) drop-shadow(0px 0px 14px rgba(225,131,141,0.35))'
+                filter: 'drop-shadow(0px 0px 5px rgba(245,242,237,0.45)) drop-shadow(0px 0px 16px rgba(225,131,141,0.55)) drop-shadow(0px 0px 30px rgba(225,131,141,0.25))'
               }}
             />
           </Link>

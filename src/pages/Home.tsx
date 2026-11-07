@@ -11,15 +11,32 @@ import {
   Instagram,
   Maximize2,
   ShieldCheck,
-  Flame
+  Flame,
+  Box,
+  Check,
 } from 'lucide-react';
 import { Hero } from '../components/Hero';
 import { InteractiveNav } from '../components/InteractiveNav';
-import { PAINTINGS, REVIEWS, INSTAGRAM_URL } from '../data';
+import { Interactive3DViewer } from '../components/Interactive3DViewer';
+import { ThreeDModal } from '../components/ThreeDModal';
+import { PAINTINGS, STORIES, INSTAGRAM_URL } from '../data';
 
 export const Home: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<'all' | 'landscape' | 'pop' | 'mini'>('all');
   const [selectedArtwork, setSelectedArtwork] = useState<typeof PAINTINGS[0] | null>(null);
+  const [copied3DWaitlist, setCopied3DWaitlist] = useState(false);
+  const [is3DModalOpen, setIs3DModalOpen] = useState(false);
+
+  const handleJoin3DWaitlist = () => {
+    const message = `Hi Awanti! I saw the sneak peek of the 3D Mini Portraits on your website. Please add me to the early access waitlist when commissions open!`;
+    navigator.clipboard.writeText(message).then(() => {
+      setCopied3DWaitlist(true);
+      setTimeout(() => setCopied3DWaitlist(false), 2500);
+      setTimeout(() => {
+        window.open(INSTAGRAM_URL, '_blank');
+      }, 600);
+    });
+  };
 
   const filteredPaintings = PAINTINGS.filter(p => {
     if (activeCategory === 'all') return true;
@@ -194,6 +211,104 @@ export const Home: React.FC = () => {
             <span>Explore All 20+ Artworks</span>
             <ArrowRight size={15} />
           </Link>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          4.5 ATELIER SNEAK PEEK: 3D HAND-PAINTED MINI PORTRAITS
+      ══════════════════════════════════════════════════════════ */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-gradient-to-b from-[#0b0a0c] via-[#151018] to-[#0b0a0c] border-y border-[rgba(225,131,141,0.2)] relative overflow-hidden">
+        {/* Glow backdrop */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(225,131,141,0.08)_0%,transparent_70%)] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+            {/* Left: Interactive 3D Canvas */}
+            <div className="lg:col-span-6 order-2 lg:order-1">
+              <div className="relative">
+                {/* Washi tape aesthetic accents */}
+                <div className="washi-tape -top-3 left-6 -rotate-3" />
+                <Interactive3DViewer
+                  heightClass="h-[380px] sm:h-[460px] md:h-[500px]"
+                />
+              </div>
+            </div>
+
+            {/* Right: Teaser Story & VIP Waitlist */}
+            <div className="lg:col-span-6 order-1 lg:order-2">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="atelier-stamp">
+                  <Sparkles size={12} className="text-[var(--accent)]" />
+                  ATELIER SNEAK PEEK
+                </span>
+                <span className="font-hand text-2xl text-[var(--accent-light)] rotate-[-1deg]">
+                  something new is in the works
+                </span>
+              </div>
+
+              <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl text-white leading-[1.12]">
+                Taking Slow Art into the Third Dimension.
+              </h2>
+
+              <p className="mt-6 text-white/75 font-sans text-sm md:text-base leading-relaxed">
+                We are developing an intimate new art format: custom <strong className="text-white font-medium">3D-printed miniature portraits</strong>, sculpted with 50-micron precision and <strong className="text-white font-medium">individually hand-painted by Awanti</strong> with fine acrylics, micro-shading, and an archival finish.
+              </p>
+
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="p-4 rounded-sm bg-[#18131c] border border-white/5">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--accent)]">Phase 01</span>
+                  <h5 className="font-editorial text-base text-white mt-1">3D Sculpt</h5>
+                  <p className="text-white/50 text-xs mt-1">From reference photos to high-res resin model.</p>
+                </div>
+                <div className="p-4 rounded-sm bg-[#18131c] border border-white/5">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--accent)]">Phase 02</span>
+                  <h5 className="font-editorial text-base text-white mt-1">Hand-Painted</h5>
+                  <p className="text-white/50 text-xs mt-1">Micro-brush acrylic layers and delicate gradients.</p>
+                </div>
+                <div className="p-4 rounded-sm bg-[#18131c] border border-white/5">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--accent)]">Phase 03</span>
+                  <h5 className="font-editorial text-base text-white mt-1">Archival Seal</h5>
+                  <p className="text-white/50 text-xs mt-1">Protective satin UV coat on solid wood mount.</p>
+                </div>
+              </div>
+
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <button
+                  type="button"
+                  onClick={handleJoin3DWaitlist}
+                  className="btn-gold cursor-pointer"
+                >
+                  {copied3DWaitlist ? (
+                    <>
+                      <Check size={15} />
+                      <span>Copied! Opening Instagram...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Instagram size={15} />
+                      <span>Join Early Access Waitlist</span>
+                      <ArrowRight size={14} />
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIs3DModalOpen(true)}
+                  className="px-5 py-3 border border-white/20 hover:border-[var(--accent)] text-white/80 hover:text-white text-xs font-mono uppercase tracking-wider transition-all rounded-sm flex items-center gap-2 cursor-pointer"
+                >
+                  <Box size={14} className="text-[var(--accent)]" />
+                  <span>Full Viewport</span>
+                </button>
+              </div>
+
+              <p className="mt-4 text-[11px] font-mono text-white/40">
+                ✦ Prototypes currently spinning in studio • Commissions opening soon
+              </p>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -387,44 +502,44 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          7. COLLECTOR REVIEWS & PRAISE WALL
+          7. COLLECTOR STORIES & PRAISE WALL
       ══════════════════════════════════════════════════════════ */}
       <section className="py-24 md:py-36 px-6 md:px-12 bg-[#0e0c10] border-t border-[rgba(225,131,141,0.12)]">
         <div className="max-w-7xl mx-auto">
 
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="atelier-stamp">COLLECTOR VOICES</span>
+            <span className="atelier-stamp">COLLECTOR STORIES</span>
             <h2 className="font-editorial text-4xl md:text-5xl text-white mt-3">
               Cherished in Real Homes
             </h2>
             <p className="text-white/60 font-mono text-xs uppercase tracking-wider mt-2.5">
-              Reviews from verified buyers across India
+              Stories from collector homes across India
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {REVIEWS.slice(0, 3).map((review) => (
+            {STORIES.slice(0, 3).map((story) => (
               <div
-                key={review.id}
+                key={story.id}
                 className="bg-[#141016] border border-[rgba(225,131,141,0.12)] hover:border-[rgba(225,131,141,0.35)] p-6 rounded-sm flex flex-col justify-between transition-all duration-300"
               >
                 <div>
                   <div className="flex gap-1 mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
+                    {[...Array(story.rating)].map((_, i) => (
                       <Star key={i} size={14} fill="var(--accent)" stroke="none" />
                     ))}
                   </div>
                   <p className="font-editorial text-lg text-white/90 italic leading-relaxed">
-                    "{review.text}"
+                    "{story.text}"
                   </p>
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
                   <div>
-                    <h4 className="font-mono text-xs text-white font-bold">{review.user}</h4>
-                    <span className="text-[10px] text-white/40 uppercase font-mono">{review.role}</span>
+                    <h4 className="font-mono text-xs text-white font-bold">{story.user}</h4>
+                    <span className="text-[10px] text-white/40 uppercase font-mono">{story.role}</span>
                   </div>
-                  <span className="text-[10px] text-[var(--accent)] font-mono">{review.date}</span>
+                  <span className="text-[10px] text-[var(--accent)] font-mono">{story.date}</span>
                 </div>
               </div>
             ))}
@@ -432,10 +547,10 @@ export const Home: React.FC = () => {
 
           <div className="mt-12 text-center">
             <Link
-              to="/reviews"
+              to="/stories"
               className="text-xs font-mono tracking-wider text-[var(--accent)] hover:underline uppercase inline-flex items-center gap-2"
             >
-              <span>Read All Verified Collector Reviews</span>
+              <span>Read All Collector Stories</span>
               <ArrowRight size={13} />
             </Link>
           </div>
@@ -498,6 +613,12 @@ export const Home: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* 3D Atelier Sneak Peek Modal */}
+      <ThreeDModal
+        isOpen={is3DModalOpen}
+        onClose={() => setIs3DModalOpen(false)}
+      />
 
     </main>
   );

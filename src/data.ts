@@ -9,9 +9,13 @@ export type Painting = {
   status: 'Available' | 'Sold Out' | 'Waitlist';
   img: string;
   featured?: boolean;
+  is3D?: boolean;
+  sketchfabId?: string;
+  embedUrl?: string;
+  description?: string;
 };
 
-export type Review = {
+export type Story = {
   id: number;
   user: string;
   role: string;
@@ -19,6 +23,7 @@ export type Review = {
   rating: number;
   date: string;
 };
+export type Review = Story;
 
 /* ── Hero slideshow — 7 best paintings ───────────────────────────── */
 export const HERO_PAINTINGS = [
@@ -69,8 +74,8 @@ export const AVAILABLE = PAINTINGS.filter(p => p.status === 'Available');
 /* ── Featured paintings (for home editorial section) ─────────────── */
 export const FEATURED = PAINTINGS.filter(p => p.featured);
 
-/* ── Reviews ─────────────────────────────────────────────────────── */
-export const REVIEWS: Review[] = [
+/* ── Collector Stories ───────────────────────────────────────────── */
+export const STORIES: Story[] = [
   {
     id: 1,
     user: 'Aarav P.',
@@ -105,6 +110,8 @@ export const REVIEWS: Review[] = [
   },
 ];
 
+export const REVIEWS = STORIES;
+
 /* ── Instagram ───────────────────────────────────────────────────── */
 export const INSTAGRAM_URL = 'https://www.instagram.com/artsyauraa_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==';
 
@@ -131,3 +138,21 @@ export const PROCESS_STEPS = [
     desc: 'Carefully packaged and shipped to your door — or available for local pickup. Ready to hang from day one.',
   },
 ];
+
+/* ── Upcoming 3D Art Project Teaser ─────────────────────────────── */
+export const UPCOMING_3D_PROJECT = {
+  title: 'Hand-Painted 3D Mini Portraits',
+  tagline: 'Something New is Coming to the Atelier',
+  desc: 'A new dimension of slow art. Precision 3D-sculpted mini figurines, hand-painted brushstroke by brushstroke with archival artist acrylics. Currently in development.',
+  badge: 'Under Development',
+  sketchfabId: '7d39ef80acc24a3db30155b978010ac4',
+  embedUrl: 'https://sketchfab.com/models/7d39ef80acc24a3db30155b978010ac4/embed?autostart=1&transparent=1&ui_theme=dark',
+  thumbnail: '/products/3d-mini-portrait.jpg',
+  modelCredit: {
+    title: 'Chibi artist holding paintbrush and palette',
+    author: 'LiquidRaven1346',
+    authorUrl: 'https://sketchfab.com/LiquidRaven1346',
+    modelUrl: 'https://sketchfab.com/3d-models/chibi-artist-holding-paintbrush-and-palette-7d39ef80acc24a3db30155b978010ac4',
+  },
+};
+

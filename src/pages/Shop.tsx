@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PAINTINGS, INSTAGRAM_URL } from '../data';
-import { Instagram, Check } from 'lucide-react';
+import { Instagram, Check, Sparkles, Box, ArrowRight } from 'lucide-react';
 import { ImageModal } from '../components/ImageModal';
+import { ThreeDModal } from '../components/ThreeDModal';
 
 // Hand-drawn underline SVG for the active filter
 const RoughUnderline = () => (
@@ -31,6 +32,7 @@ export const Shop = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<{ src: string, alt: string } | null>(null);
+  const [is3DModalOpen, setIs3DModalOpen] = useState(false);
 
   const filters = ['All', 'Available', 'Sold Out'];
 
@@ -355,6 +357,40 @@ export const Shop = () => {
             </p>
           </div>
         )}
+
+        {/* ── ATELIER TEASER BANNER (SOMETHING NEW IS COMING) ── */}
+        <div className="mt-20 border border-[rgba(225,131,141,0.25)] bg-gradient-to-r from-[#17121b] via-[#1a1420] to-[#140f17] p-6 md:p-10 rounded-sm relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[radial-gradient(circle,rgba(225,131,141,0.12)_0%,transparent_70%)] pointer-events-none" />
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+            <div className="text-left max-w-xl">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="atelier-stamp text-[9px]">
+                  <Sparkles size={11} className="text-[var(--accent)]" />
+                  ATELIER SNEAK PEEK
+                </span>
+                <span className="font-mono text-[10px] text-[var(--accent-light)] uppercase tracking-widest">
+                  Something New Is In The Works
+                </span>
+              </div>
+              <h3 className="font-editorial text-2xl md:text-3xl text-white">
+                Taking Slow Art Into Three Dimensions
+              </h3>
+              <p className="mt-2 text-white/70 font-sans text-xs md:text-sm leading-relaxed">
+                Awanti is experimenting with bespoke 3D-sculpted mini portraits, meticulously painted by hand with archival artist acrylics. An exclusive prototype is spinning in the studio.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIs3DModalOpen(true)}
+              className="btn-gold whitespace-nowrap flex items-center gap-2 cursor-pointer flex-shrink-0 shadow-lg hover:shadow-[var(--accent)]/20"
+            >
+              <Box size={15} />
+              <span>Experience 3D Prototype</span>
+              <ArrowRight size={14} />
+            </button>
+          </div>
+        </div>
       </section>
 
       <ImageModal 
@@ -362,6 +398,11 @@ export const Shop = () => {
         onClose={() => setSelectedImage(null)} 
         imgSrc={selectedImage?.src || null} 
         altText={selectedImage?.alt} 
+      />
+
+      <ThreeDModal
+        isOpen={is3DModalOpen}
+        onClose={() => setIs3DModalOpen(false)}
       />
     </main>
   );

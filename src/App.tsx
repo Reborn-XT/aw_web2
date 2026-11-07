@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -91,13 +91,14 @@ function App() {
       {/* Page content */}
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/"            element={<PageTransition><Home /></PageTransition>} />
-          <Route path="/gallery"     element={<PageTransition><Gallery /></PageTransition>} />
-          <Route path="/shop"        element={<PageTransition><Shop /></PageTransition>} />
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/gallery" element={<PageTransition><Gallery /></PageTransition>} />
+          <Route path="/shop" element={<PageTransition><Shop /></PageTransition>} />
           <Route path="/custom-work" element={<PageTransition><CustomWork /></PageTransition>} />
-          <Route path="/reviews"     element={<PageTransition><ComingSoon title="Reviews" /></PageTransition>} />
-          <Route path="/about"       element={<PageTransition><ComingSoon title="About" /></PageTransition>} />
-          <Route path="/contact"     element={<PageTransition><ComingSoon title="Contact" /></PageTransition>} />
+          <Route path="/stories" element={<PageTransition><ComingSoon title="Stories" /></PageTransition>} />
+          <Route path="/reviews" element={<Navigate to="/stories" replace />} />
+          <Route path="/about" element={<PageTransition><ComingSoon title="About" /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><ComingSoon title="Contact" /></PageTransition>} />
         </Routes>
       </AnimatePresence>
 

@@ -6,7 +6,7 @@ const NAV = [
   { to: '/gallery',     label: 'Gallery'     },
   { to: '/shop',        label: 'Shop'        },
   { to: '/custom-work', label: 'Custom Work' },
-  { to: '/reviews',     label: 'Reviews'     },
+  { to: '/stories',     label: 'Stories'     },
   { to: '/about',       label: 'About'       },
   { to: '/contact',     label: 'Contact'     },
 ];
@@ -29,17 +29,27 @@ export const Footer = () => (
 
     <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center gap-10">
 
-      {/* Logo */}
-      <Link to="/" className="flex flex-col items-center group">
+      {/* Logo with ambient faint glow */}
+      <Link to="/" className="relative flex flex-col items-center group py-2">
+        {/* Ambient faint glow backdrop */}
+        <div
+          aria-hidden="true"
+          className="absolute top-2 w-36 h-14 rounded-full pointer-events-none transition-opacity duration-500 opacity-75 group-hover:opacity-100"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(245, 235, 225, 0.2) 0%, rgba(225, 131, 141, 0.18) 45%, rgba(225, 131, 141, 0.04) 75%, transparent 100%)',
+            filter: 'blur(10px)',
+            transform: 'scale(1.2)',
+          }}
+        />
         <img
           src="/logok.svg"
           alt="Awanti"
-          className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          className="h-12 md:h-14 w-auto object-contain relative z-10 transition-transform duration-300 group-hover:scale-105"
           style={{
-            filter: 'drop-shadow(0px 0px 14px rgba(225,131,141,0.3))'
+            filter: 'drop-shadow(0px 0px 5px rgba(245,242,237,0.4)) drop-shadow(0px 0px 18px rgba(225,131,141,0.5))'
           }}
         />
-        <span className="font-hand text-xl text-[var(--accent-light)] mt-2">
+        <span className="font-hand text-xl text-[var(--accent-light)] mt-2 relative z-10">
           ~ atelier d'artisan
         </span>
       </Link>
