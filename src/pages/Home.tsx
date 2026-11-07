@@ -113,8 +113,8 @@ export const Home: React.FC = () => {
             </h2>
           </div>
 
-          {/* Interactive Category Filter Pills */}
-          <div className="flex flex-wrap gap-2">
+          {/* Interactive Category Filter Pills (Horizontal swipeable on mobile) */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none max-w-full -mx-2 px-2 sm:mx-0 sm:px-0">
             {[
               { id: 'all', label: 'All Works' },
               { id: 'landscape', label: 'Landscapes' },
@@ -124,7 +124,7 @@ export const Home: React.FC = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id as any)}
-                className={`px-4 py-2 text-xs font-mono tracking-wider uppercase transition-all duration-300 rounded-sm cursor-pointer ${activeCategory === tab.id
+                className={`px-4 py-2 text-xs font-mono tracking-wider uppercase transition-all duration-300 rounded-sm cursor-pointer whitespace-nowrap flex-shrink-0 ${activeCategory === tab.id
                     ? 'bg-[var(--accent)] text-[#0b0a0c] font-bold shadow-[0_0_15px_rgba(225,131,141,0.4)]'
                     : 'bg-[#18141b] text-white/60 hover:text-white border border-white/5 hover:border-[var(--accent)]/40'
                   }`}
@@ -273,11 +273,11 @@ export const Home: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-md sm:max-w-none">
                 <button
                   type="button"
                   onClick={handleJoin3DWaitlist}
-                  className="btn-gold cursor-pointer"
+                  className="btn-gold cursor-pointer justify-center"
                 >
                   {copied3DWaitlist ? (
                     <>
@@ -296,7 +296,7 @@ export const Home: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIs3DModalOpen(true)}
-                  className="px-5 py-3 border border-white/20 hover:border-[var(--accent)] text-white/80 hover:text-white text-xs font-mono uppercase tracking-wider transition-all rounded-sm flex items-center gap-2 cursor-pointer"
+                  className="px-5 py-3 border border-white/20 hover:border-[var(--accent)] text-white/80 hover:text-white text-xs font-mono uppercase tracking-wider transition-all rounded-sm flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Box size={14} className="text-[var(--accent)]" />
                   <span>Full Viewport</span>
@@ -318,7 +318,7 @@ export const Home: React.FC = () => {
       <section className="py-24 md:py-36 px-6 md:px-12 bg-[#120f15] border-y border-[rgba(225,131,141,0.15)] relative overflow-hidden">
 
         {/* Background decorative typography */}
-        <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[15rem] md:text-[22rem] font-editorial text-white/[0.015] select-none pointer-events-none leading-none">
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[7rem] sm:text-[14rem] md:text-[22rem] font-editorial text-white/[0.015] select-none pointer-events-none leading-none">
           CRAFT
         </div>
 
@@ -567,23 +567,24 @@ export const Home: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedArtwork(null)}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-6 cursor-zoom-out"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 cursor-zoom-out overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={e => e.stopPropagation()}
-              className="max-w-3xl w-full bg-[#151118] border border-[var(--accent)]/40 p-6 rounded-sm shadow-2xl relative"
+              className="max-w-3xl w-full bg-[#151118] border border-[var(--accent)]/40 p-4 sm:p-6 rounded-sm shadow-2xl relative max-h-[92vh] overflow-y-auto my-auto"
             >
               <button
                 onClick={() => setSelectedArtwork(null)}
-                className="absolute top-4 right-4 text-white/60 hover:text-white font-mono text-sm"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 flex items-center justify-center bg-black/60 rounded-full text-white/70 hover:text-white font-mono text-xs z-10 cursor-pointer"
+                aria-label="Close"
               >
-                [CLOSE ✕]
+                ✕
               </button>
 
-              <div className="aspect-square sm:aspect-[4/3] bg-black rounded-xs overflow-hidden mb-6">
+              <div className="aspect-square sm:aspect-[4/3] max-h-[55vh] bg-black rounded-xs overflow-hidden mb-4 sm:mb-6 flex items-center justify-center">
                 <img
                   src={selectedArtwork.img}
                   alt={selectedArtwork.title}
@@ -591,18 +592,18 @@ export const Home: React.FC = () => {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h3 className="font-editorial text-3xl text-white">{selectedArtwork.title}</h3>
+                  <h3 className="font-editorial text-2xl sm:text-3xl text-white">{selectedArtwork.title}</h3>
                   <p className="font-mono text-xs text-[var(--accent)] mt-1">
                     {selectedArtwork.medium} · {selectedArtwork.size} · {selectedArtwork.cat}
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="font-mono text-2xl text-white font-bold">₹{selectedArtwork.price.toLocaleString()}</p>
+                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-3">
+                  <p className="font-mono text-xl sm:text-2xl text-white font-bold">₹{selectedArtwork.price.toLocaleString()}</p>
                   <Link
                     to="/shop"
-                    className="btn-gold text-xs mt-2"
+                    className="btn-gold text-xs py-2 px-4"
                     onClick={() => setSelectedArtwork(null)}
                   >
                     <span>Enquire</span>

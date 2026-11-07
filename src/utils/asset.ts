@@ -12,3 +12,4 @@ export const asset = (path: string): string => {
   const cleanBase = base.endsWith('/') ? base : `${base}/`;
   return `${cleanBase}${cleanPath}`;
 };
+

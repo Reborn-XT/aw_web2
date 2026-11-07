@@ -80,7 +80,7 @@ export const ThreeDModal: React.FC<ThreeDModalProps> = ({
               {/* 3D Viewport Column */}
               <div className="lg:col-span-7 bg-[#0c0a0e] flex flex-col justify-center">
                 <Interactive3DViewer
-                  heightClass="h-[360px] sm:h-[420px] md:h-[480px] lg:h-[540px]"
+                  heightClass="h-[280px] sm:h-[380px] md:h-[460px] lg:h-[540px]"
                   className="border-0 rounded-none shadow-none"
                 />
               </div>

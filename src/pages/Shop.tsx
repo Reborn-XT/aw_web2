@@ -131,9 +131,9 @@ export const Shop = () => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="px-6 mb-16 flex justify-center"
+        className="px-4 sm:px-6 mb-12 sm:mb-16 flex justify-center"
       >
-        <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+        <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12">
           {filters.map((filter) => {
             const isActive = activeFilter === filter;
             return (
@@ -164,8 +164,8 @@ export const Shop = () => {
       </motion.section>
 
       {/* ── 3. ARTWORK GRID ───────────────────────────────────────────── */}
-      <section className="px-6 md:px-10 lg:px-16 max-w-[1400px] mx-auto w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <section className="px-4 sm:px-6 md:px-10 lg:px-16 max-w-[1400px] mx-auto w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6 md:gap-8">
           <AnimatePresence mode="popLayout">
             {filteredPaintings.map((painting) => {
               const discountedPrice = getDiscountedPrice(painting.title, painting.price);
@@ -383,7 +383,7 @@ export const Shop = () => {
             <button
               type="button"
               onClick={() => setIs3DModalOpen(true)}
-              className="btn-gold whitespace-nowrap flex items-center gap-2 cursor-pointer flex-shrink-0 shadow-lg hover:shadow-[var(--accent)]/20"
+              className="btn-gold whitespace-nowrap flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto flex-shrink-0 shadow-lg hover:shadow-[var(--accent)]/20"
             >
               <Box size={15} />
               <span>Experience 3D Prototype</span>

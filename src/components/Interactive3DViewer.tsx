@@ -19,7 +19,7 @@ export const Interactive3DViewer: React.FC<Interactive3DViewerProps> = ({
   authorName = 'LiquidRaven1346',
   authorUrl = 'https://sketchfab.com/LiquidRaven1346',
   modelUrl = 'https://sketchfab.com/3d-models/chibi-artist-holding-paintbrush-and-palette-7d39ef80acc24a3db30155b978010ac4',
-  heightClass = 'h-[440px] md:h-[520px]',
+  heightClass = 'h-[300px] sm:h-[400px] md:h-[520px]',
   showControlsHint = true,
   className = '',
 }) => {
@@ -123,9 +123,10 @@ export const Interactive3DViewer: React.FC<Interactive3DViewerProps> = ({
 
         {/* Floating Controls Overlay Hint */}
         {showControlsHint && viewMode === '3d' && isLoaded && (
-          <div className="pointer-events-none absolute bottom-3 left-3 bg-[#0e0c10]/80 backdrop-blur-md px-3 py-1.5 rounded-xs border border-white/10 text-[10px] font-mono text-white/70 flex items-center gap-2 shadow-lg">
+          <div className="pointer-events-none absolute bottom-3 left-3 bg-[#0e0c10]/85 backdrop-blur-md px-2.5 sm:px-3 py-1.5 rounded-xs border border-white/10 text-[9px] sm:text-[10px] font-mono text-white/70 flex items-center gap-2 shadow-lg">
             <RotateCw size={11} className="text-[var(--accent)] animate-spin" style={{ animationDuration: '6s' }} />
-            <span>Drag to rotate 360° • Scroll to zoom</span>
+            <span className="hidden sm:inline">Drag to rotate 360° • Scroll to zoom</span>
+            <span className="sm:hidden">Touch & drag to rotate 360°</span>
           </div>
         )}
 

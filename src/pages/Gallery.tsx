@@ -150,26 +150,15 @@ export const Gallery = () => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          padding: '0 1.5rem',
-          marginBottom: '2rem',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
+        className="px-4 sm:px-6 mb-8 flex justify-center max-w-full overflow-hidden"
       >
-        {/* Pill-row container */}
+        {/* Pill-row container (Swipeable on mobile, centered wrap on desktop) */}
         <div
+          className="flex items-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 scrollbar-none max-w-full px-2.5 py-1.5 rounded-full md:flex-wrap md:justify-center"
           style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: '0.4rem',
-            maxWidth: '64rem',
-            padding: '0.5rem',
-            borderRadius: '99px',
-            background: 'rgba(30,27,23,0.6)',
-            border: '1px solid rgba(200,169,110,0.1)',
-            backdropFilter: 'blur(8px)',
+            background: 'rgba(30,27,23,0.7)',
+            border: '1px solid rgba(225,131,141,0.18)',
+            backdropFilter: 'blur(10px)',
           }}
         >
           {categories.map((cat) => {
@@ -184,7 +173,7 @@ export const Gallery = () => {
                   fontWeight: isActive ? 600 : 400,
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
-                  color: isActive ? 'var(--bg)' : 'rgba(240,236,228,0.45)',
+                  color: isActive ? 'var(--bg)' : 'rgba(240,236,228,0.5)',
                   padding: '0.35rem 0.85rem',
                   borderRadius: '99px',
                   background: isActive ? 'var(--gold)' : 'transparent',
@@ -192,6 +181,7 @@ export const Gallery = () => {
                   cursor: 'pointer',
                   transition: 'all 0.25s ease',
                   whiteSpace: 'nowrap',
+                  flexShrink: 0,
                 }}
                 onMouseEnter={e => {
                   if (!isActive) (e.target as HTMLElement).style.color = 'rgba(240,236,228,0.8)';
@@ -248,19 +238,13 @@ export const Gallery = () => {
                 }}
               />
 
-              {/* Hover overlay */}
+              {/* Overlay: Subtle ambient metadata visible on mobile, reveal on desktop hover */}
               <div
+                className={`absolute inset-0 flex flex-col justify-end p-2.5 sm:p-3.5 transition-all duration-300 pointer-events-none ${
+                  hoveredId === painting.id ? 'opacity-100' : 'opacity-90 md:opacity-0'
+                }`}
                 style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to top, rgba(8,7,5,0.92) 0%, rgba(8,7,5,0.4) 45%, transparent 100%)',
-                  opacity: hoveredId === painting.id ? 1 : 0,
-                  transition: 'opacity 0.3s ease',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                  padding: '0.9rem',
-                  pointerEvents: 'none',
+                  background: 'linear-gradient(to top, rgba(8,7,5,0.92) 0%, rgba(8,7,5,0.45) 45%, transparent 85%)',
                 }}
               >
                 {/* Status badge — top right */}
@@ -272,16 +256,16 @@ export const Gallery = () => {
                       ? 'badge-waitlist'
                       : 'badge-sold'
                   }
-                  style={{ position: 'absolute', top: '0.7rem', right: '0.7rem' }}
+                  style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', fontSize: '0.55rem', padding: '0.15rem 0.45rem' }}
                 >
                   {painting.status}
                 </span>
 
                 {/* Bottom text */}
                 <div
+                  className="transition-transform duration-300"
                   style={{
-                    transform: hoveredId === painting.id ? 'translateY(0)' : 'translateY(10px)',
-                    transition: 'transform 0.3s ease',
+                    transform: hoveredId === painting.id ? 'translateY(0)' : 'translateY(2px)',
                   }}
                 >
                   {/* Category dot + label */}

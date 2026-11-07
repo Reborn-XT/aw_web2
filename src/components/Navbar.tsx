@@ -23,8 +23,19 @@ export const Navbar = () => {
     setScrolled(latest > 60);
   });
 
-  /* Close drawer on route change */
+  /* Close drawer on route change & prevent body scroll when drawer is open */
   useEffect(() => { setOpen(false); }, []);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [open]);
 
   return (
     <>
@@ -93,17 +104,13 @@ export const Navbar = () => {
               <Instagram size={18} strokeWidth={1.5} />
             </a>
 
-            {/* Mobile hamburger */}
+            {/* Mobile hamburger — 44px touch target */}
             <button
               onClick={() => setOpen(v => !v)}
-              className="md:hidden text-white/60 hover:text-white transition-colors"
-              style={{ transition: 'color 0.2s, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1)' }}
-              onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.88)')}
-              onMouseUp={e => (e.currentTarget.style.transform = '')}
-              onMouseLeave={e => (e.currentTarget.style.transform = '')}
-              aria-label="Menu"
+              className="md:hidden w-11 h-11 -mr-2 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
+              aria-label={open ? "Close menu" : "Open menu"}
             >
-              {open ? <X size={20} /> : <Menu size={20} />}
+              {open ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -114,25 +121,26 @@ export const Navbar = () => {
         {open && (
           <>
             <motion.div
-              className="fixed inset-0 z-40 bg-black/60 md:hidden"
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
             />
             <motion.div
-              className="fixed top-0 right-0 h-full w-72 z-50 flex flex-col pt-24 pb-12 px-10 gap-8 md:hidden"
-              style={{ background: '#141210', borderLeft: '1px solid rgba(200,169,110,0.1)' }}
+              className="fixed top-0 right-0 h-full w-[82vw] max-w-xs z-50 flex flex-col pt-20 pb-10 px-8 gap-7 md:hidden shadow-2xl"
+              style={{ background: '#131015', borderLeft: '1px solid rgba(225,131,141,0.18)' }}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+              transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
             >
               <button
                 onClick={() => setOpen(false)}
-                className="absolute top-6 right-6 text-white/40 hover:text-white"
+                className="absolute top-5 right-5 w-11 h-11 flex items-center justify-center text-white/50 hover:text-white transition-colors cursor-pointer"
+                aria-label="Close menu"
               >
-                <X size={22} />
+                <X size={24} />
               </button>
 
               {NAV_LINKS.map(({ to, label }, i) => (

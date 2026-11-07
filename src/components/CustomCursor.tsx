@@ -5,6 +5,11 @@ export const CustomCursor = () => {
   const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only run custom cursor on devices with mouse/fine pointer (never on touch screens/mobile)
+    if (typeof window === 'undefined' || !window.matchMedia('(pointer: fine)').matches) {
+      return;
+    }
+
     let ringX = 0, ringY = 0;
     let mouseX = 0, mouseY = 0;
     let raf: number;

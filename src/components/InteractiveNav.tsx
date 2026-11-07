@@ -137,12 +137,12 @@ export const InteractiveNav = () => {
     : navItems.find(item => item.id === hoveredSection)?.artistImg || defaultPose;
 
   return (
-    <section className="py-20 md:py-32 px-6 md:px-12 bg-[var(--bg)] border-y border-[rgba(225,131,141,0.12)] overflow-hidden relative min-h-[700px] flex items-center">
+    <section className="py-14 sm:py-20 md:py-32 px-4 sm:px-6 md:px-12 bg-[var(--bg)] border-y border-[rgba(225,131,141,0.12)] overflow-hidden relative flex items-center">
       <div className="max-w-7xl w-full mx-auto flex flex-col md:flex-row items-center relative z-10 h-full">
 
         {/* Left Side: Character Image (The Artist) */}
         <div className="w-full md:w-5/12 flex flex-col items-center justify-center relative z-20">
-          <div className="relative w-full h-[400px] md:h-[620px] flex justify-center">
+          <div className="relative w-full h-[280px] sm:h-[360px] md:h-[620px] flex justify-center">
             <AnimatePresence mode="wait">
               <motion.img
                 key={hoveredSection}
@@ -156,9 +156,9 @@ export const InteractiveNav = () => {
               />
             </AnimatePresence>
           </div>
-          <div className="mt-4 flex items-center gap-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-            <p className="font-mono text-xs tracking-[0.12em] text-[var(--accent)] uppercase">
+          <div className="mt-3 sm:mt-4 flex items-center gap-2.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+            <p className="font-mono text-[11px] sm:text-xs tracking-[0.12em] text-[var(--accent)] uppercase">
               Meet Awanti · The Atelier
             </p>
           </div>
@@ -254,23 +254,46 @@ export const InteractiveNav = () => {
           })}
         </div>
 
-        {/* Mobile View: Fallback to vertical stack */}
-        <div className="w-full flex md:hidden flex-col gap-8 items-center mt-12 relative z-30">
-          {navItems.map((item) => (
-            <Link
-              key={`mobile-${item.id}`}
-              to={item.path}
-              className="group flex flex-col items-center"
-            >
-              <div className="w-36 h-36 mb-4">
-                <img src={item.navImg} alt={item.label} className="w-full h-full object-contain rounded-md shadow-md"
-                  onError={(e) => {
-                    e.currentTarget.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="rgba(200,169,110,0.1)" rx="20"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(200,169,110,0.8)" font-family="sans-serif" font-size="12">Image</text></svg>';
-                  }} />
-              </div>
-              <span className="font-display text-xl text-[var(--gold)]">{item.label}</span>
-            </Link>
-          ))}
+        {/* Mobile View: Interactive 2x2 Atelier Grid */}
+        <div className="w-full md:hidden mt-8 sm:mt-10 relative z-30">
+          <p className="font-mono text-[10px] text-white/40 uppercase tracking-widest text-center mb-4">
+            ✦ Tap to explore & change artist pose ✦
+          </p>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-sm mx-auto">
+            {navItems.map((item) => {
+              const isSelected = hoveredSection === item.id;
+              return (
+                <Link
+                  key={`mobile-${item.id}`}
+                  to={item.path}
+                  onClick={() => setHoveredSection(item.id)}
+                  className={`group flex flex-col items-center p-3 rounded-sm border transition-all duration-300 ${
+                    isSelected
+                      ? 'bg-[#1b151e] border-[var(--accent)] shadow-[0_0_20px_rgba(225,131,141,0.25)]'
+                      : 'bg-[#130f16]/90 border-white/10 hover:border-[var(--accent)]/40'
+                  }`}
+                >
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 mb-2.5 overflow-hidden rounded-xs relative">
+                    <img
+                      src={item.navImg}
+                      alt={item.label}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => {
+                        e.currentTarget.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="rgba(200,169,110,0.1)" rx="20"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(200,169,110,0.8)" font-family="sans-serif" font-size="12">Image</text></svg>';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                  <span className="font-editorial text-sm sm:text-base text-white text-center group-hover:text-[var(--accent)] transition-colors leading-tight">
+                    {item.label}
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--accent)] mt-1 opacity-70 group-hover:opacity-100">
+                    Enter Room →
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
       </div>

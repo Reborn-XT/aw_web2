@@ -81,11 +81,11 @@ export const CustomWork = () => {
       </div>
 
       {/* ── 2. Process Section ────────────────────────────────────────── */}
-      <section className="py-32 bg-[var(--bg)] border-t border-[var(--border)]">
-        <div className="max-w-[1400px] mx-auto w-full px-6 md:px-10 lg:px-16">
-          <div className="text-center mb-24 fade-up">
-            <span className="gold-line mb-8" />
-            <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide">The Process</h2>
+      <section className="py-16 sm:py-24 md:py-32 bg-[var(--bg)] border-t border-[var(--border)]">
+        <div className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 md:px-10 lg:px-16">
+          <div className="text-center mb-14 sm:mb-20 md:mb-24 fade-up">
+            <span className="gold-line mb-6 sm:mb-8" />
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white tracking-wide">The Process</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16">
@@ -118,20 +118,20 @@ export const CustomWork = () => {
       </section>
 
       {/* ── 3. Pricing & Sizing Guide ─────────────────────────────────── */}
-      <section className="py-32 bg-[var(--surface)]">
-        <div className="max-w-[1400px] mx-auto w-full px-6 md:px-10 lg:px-16">
-          <div className="text-center mb-24 fade-up">
-            <h2 className="font-display text-4xl md:text-5xl text-white mb-6 tracking-wide">Investment & Sizing</h2>
-            <p className="text-[var(--muted)] text-sm tracking-wide uppercase">Starting guide for custom originals</p>
+      <section className="py-16 sm:py-24 md:py-32 bg-[var(--surface)]">
+        <div className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 md:px-10 lg:px-16">
+          <div className="text-center mb-14 sm:mb-20 md:mb-24 fade-up">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white mb-4 sm:mb-6 tracking-wide">Investment & Sizing</h2>
+            <p className="text-[var(--muted)] text-xs sm:text-sm tracking-wide uppercase">Starting guide for custom originals</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 fade-up">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 fade-up">
             {[
               { size: 'Miniature / Pet', dim: '4" × 4" to 6" × 8"', price: 'Starting at ₹1,499', desc: 'Perfect for desk easels, bedside tables, or intimate gifts.' },
               { size: 'Medium Portrait', dim: '8" × 10" to 10" × 12"', price: 'Starting at ₹2,999', desc: 'Ideal for couple portraits, Ghibli-style memories, and study walls.', popular: true },
               { size: 'Masterpiece Canvas', dim: '12" × 16" to 18" × 24"+', price: 'Starting at ₹4,999', desc: 'A grand statement artwork with heavy textural detail and archival linen.' }
             ].map((tier, i) => (
-              <div key={i} className={`p-10 lg:p-12 border ${tier.popular ? 'border-[var(--gold)] bg-[var(--surface-2)] shadow-[0_0_40px_rgba(225,131,141,0.08)] transform lg:-translate-y-4' : 'border-[var(--border)] bg-[var(--bg)]'} flex flex-col items-center text-center transition-transform duration-500 hover:-translate-y-2`}>
+              <div key={i} className={`p-6 sm:p-10 lg:p-12 border ${tier.popular ? 'border-[var(--gold)] bg-[var(--surface-2)] shadow-[0_0_40px_rgba(225,131,141,0.08)] transform lg:-translate-y-4' : 'border-[var(--border)] bg-[var(--bg)]'} flex flex-col items-center text-center transition-transform duration-500 hover:-translate-y-2 rounded-sm`}>
                 {tier.popular && <span className="section-label mb-6 block">Most Popular</span>}
                 <h3 className="font-display text-3xl text-white mb-2">{tier.size}</h3>
                 <p className="text-[var(--gold)] text-sm tracking-widest mb-6 font-mono">{tier.dim}</p>
@@ -146,8 +146,8 @@ export const CustomWork = () => {
       </section>
 
       {/* ── 4. Inquiry Section: Google Form & Instagram DM ───────────── */}
-      <section id="inquire" className="py-32 bg-[var(--bg)] scroll-mt-20">
-        <div className="max-w-[1400px] mx-auto w-full px-6 md:px-10 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <section id="inquire" className="py-16 sm:py-24 md:py-32 bg-[var(--bg)] scroll-mt-20">
+        <div className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 md:px-10 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
           {/* Left Column: Direct Instagram DM & FAQ */}
           <div className="lg:col-span-5 space-y-10 fade-up">
@@ -302,7 +302,7 @@ export const CustomWork = () => {
               </div>
 
               {/* Iframe Viewport */}
-              <div className="relative w-full min-h-[750px] md:min-h-[820px] bg-[#120e15] flex flex-col items-center justify-center">
+              <div className="relative w-full min-h-[580px] sm:min-h-[720px] md:min-h-[820px] bg-[#120e15] flex flex-col items-center justify-center">
 
                 {/* Loading state indicator */}
                 {!isIframeLoaded && (
@@ -320,7 +320,7 @@ export const CustomWork = () => {
                 <iframe
                   src={GOOGLE_FORM_EMBED_URL}
                   title="Awanti Art Custom Commission Google Form"
-                  className="w-full min-h-[750px] md:min-h-[820px] border-0"
+                  className="w-full min-h-[580px] sm:min-h-[720px] md:min-h-[820px] border-0"
                   onLoad={() => setIsIframeLoaded(true)}
                 >
                   Loading Google Form…

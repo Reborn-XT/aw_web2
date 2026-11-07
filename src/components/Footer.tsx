@@ -14,7 +14,7 @@ const NAV = [
 
 export const Footer = () => (
   <footer
-    className="relative pt-24 pb-12 px-6 overflow-hidden"
+    className="relative pt-16 sm:pt-24 pb-10 sm:pb-12 px-4 sm:px-6 overflow-hidden"
     style={{
       background: '#09080b',
       borderTop: '1px solid rgba(225,131,141,0.12)',
@@ -22,13 +22,13 @@ export const Footer = () => (
   >
     {/* Ambient rose glow */}
     <div
-      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[220px] pointer-events-none"
+      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90vw] max-w-[700px] h-[180px] pointer-events-none"
       style={{
         background: 'radial-gradient(ellipse, rgba(225,131,141,0.06) 0%, transparent 70%)',
       }}
     />
 
-    <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center gap-10">
+    <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center gap-8 sm:gap-10">
 
       {/* Logo with ambient faint glow */}
       <Link to="/" className="relative flex flex-col items-center group py-2">
@@ -56,7 +56,7 @@ export const Footer = () => (
       </Link>
 
       {/* Nav links */}
-      <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+      <nav className="flex flex-wrap justify-center gap-x-5 sm:gap-x-8 gap-y-2.5">
         {NAV.map(({ to, label }) => (
           <Link key={to} to={to} className="footer-link hover:text-[var(--accent)] font-mono text-xs tracking-wider">
             {label}
@@ -89,7 +89,7 @@ export const Footer = () => (
         </div>
 
         <p
-          className="text-xs tracking-wider uppercase text-white/50"
+          className="text-[11px] sm:text-xs tracking-wider uppercase text-white/50 text-center px-4"
           style={{ fontFamily: 'var(--font-mono)' }}
         >
           © 2026 Awanti Atelier. All original works hand-painted in India.

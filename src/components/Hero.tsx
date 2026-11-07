@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { HERO_PAINTINGS } from '../data';
 
@@ -8,6 +9,7 @@ const SLIDE_DURATION = 6000;
 export const Hero = () => {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const next = useCallback(
     () => setCurrent(p => (p + 1) % HERO_PAINTINGS.length),
@@ -17,6 +19,22 @@ export const Hero = () => {
     () => setCurrent(p => (p - 1 + HERO_PAINTINGS.length) % HERO_PAINTINGS.length),
     []
   );
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (diff > 40) {
+      next();
+    } else if (diff < -40) {
+      prev();
+    }
+    setTouchStartX(null);
+  };
 
   useEffect(() => {
     if (paused) return;
@@ -30,10 +48,12 @@ export const Hero = () => {
 
   return (
     <section
-      className="relative w-full overflow-hidden flex flex-col"
-      style={{ height: '100svh', minHeight: '600px', background: '#0c0b09' }}
+      className="relative w-full overflow-hidden flex flex-col touch-pan-y"
+      style={{ height: '100svh', minHeight: '580px', background: '#0c0b09' }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* ── Painting Background ── */}
       <AnimatePresence mode="sync">
@@ -57,42 +77,50 @@ export const Hero = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Golden Ratio Gradients ── */}
-      {/* Left to right gradient for the main typography block */}
+      {/* ── Gradients ── */}
+      {/* Desktop left-to-right gradient */}
       <div
-        className="absolute inset-0 pointer-events-none z-[1]"
+        className="absolute inset-0 pointer-events-none z-[1] hidden md:block"
         style={{
           background: 'linear-gradient(to right, rgba(12,11,9,1) 0%, rgba(12,11,9,1) 16.66%, rgba(12,11,9,0.7) 35%, rgba(12,11,9,0) 65%)'
         }}
       />
 
-      {/* Subtle bottom gradient to ensure HUD readability */}
+      {/* Mobile full backdrop scrim (ensures editorial text is ultra readable over photos on phone screens) */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[1] md:hidden"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(12,11,9,0.92) 0%, rgba(12,11,9,0.65) 45%, rgba(12,11,9,0.95) 100%)'
+        }}
+      />
+
+      {/* Bottom gradient to ensure HUD readability */}
       <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: 'linear-gradient(to top, rgba(12,11,9,0.8) 0%, rgba(12,11,9,0) 25%)'
+          background: 'linear-gradient(to top, rgba(12,11,9,0.85) 0%, rgba(12,11,9,0) 25%)'
         }}
       />
 
       {/* ── Main Layout Wrapper ── */}
-      <div className="relative z-10 w-full h-full pointer-events-none px-6 md:px-0">
+      <div className="relative z-10 w-full h-full pointer-events-none px-4 sm:px-6 md:px-0">
 
         {/* ── MIDDLE-LEFT: Pure Editorial Typography ── */}
-        <div className="absolute top-0 bottom-0 left-6 md:left-16 flex flex-col justify-center text-left pointer-events-auto z-10 w-full max-w-2xl pr-6">
+        <div className="absolute top-0 bottom-0 left-4 sm:left-6 md:left-16 flex flex-col justify-center text-left pointer-events-auto z-10 w-full max-w-2xl pr-4 sm:pr-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={`cat-${current}`}
-              className="flex items-center gap-3 mb-4"
+              className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.45 }}
             >
-              <span className="atelier-stamp">
+              <span className="atelier-stamp text-[10px] sm:text-xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
                 № {String(current + 1).padStart(2, '0')} · {painting.cat}
               </span>
-              <span className="font-hand text-xl text-[var(--accent-light)] rotate-[-4deg] tracking-wide hidden sm:inline-block">
+              <span className="font-hand text-lg sm:text-xl text-[var(--accent-light)] rotate-[-4deg] tracking-wide inline-block">
                 ~ handmade original
               </span>
             </motion.div>
@@ -108,9 +136,9 @@ export const Hero = () => {
               className="relative"
             >
               <motion.h1
-                className="font-editorial text-white leading-[1.08] sm:leading-[1.04] mb-5 select-none"
+                className="font-editorial text-white leading-[1.08] sm:leading-[1.04] mb-3 sm:mb-5 select-none"
                 style={{
-                  fontSize: 'clamp(3.2rem, 6vw, 6.2rem)',
+                  fontSize: 'clamp(2.3rem, 7.5vw, 6.2rem)',
                   fontWeight: 400,
                   letterSpacing: '-0.01em',
                 }}
@@ -121,22 +149,14 @@ export const Hero = () => {
           </AnimatePresence>
 
           <motion.div
-            className="flex items-center gap-4 mb-8"
+            className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.85, duration: 0.9 }}
           >
-            <div style={{ width: 45, height: 1, background: 'var(--accent)' }} />
+            <div style={{ width: 35, height: 1, background: 'var(--accent)' }} />
             <p
-              style={{
-                fontFamily: 'DM Sans, system-ui, sans-serif',
-                fontSize: '0.75rem',
-                letterSpacing: '0.12em',
-                wordSpacing: '0.08em',
-                lineHeight: 1.5,
-                textTransform: 'uppercase',
-                color: 'rgba(240,236,228,0.75)',
-              }}
+              className="text-[10px] sm:text-[11px] md:text-xs tracking-[0.1em] sm:tracking-[0.12em] uppercase text-white/75 font-mono"
             >
               Awanti Atelier · Pigment on Archival Canvas
             </p>
@@ -146,20 +166,20 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 0.7 }}
-            className="flex items-center gap-4"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-sm sm:max-w-none"
           >
-            <a href="/gallery" className="btn-gold group">
+            <Link to="/gallery" className="btn-gold group text-center justify-center">
               <span>Explore Gallery</span>
-            </a>
-            <a href="/custom-work" className="btn-ghost">
-              Commission Bespoke
-            </a>
+            </Link>
+            <Link to="/custom-work" className="btn-ghost text-center justify-center">
+              <span>Commission Bespoke</span>
+            </Link>
           </motion.div>
         </div>
 
         {/* ── BOTTOM-RIGHT: HUD Controls ── */}
         <motion.div
-          className="absolute bottom-10 md:bottom-16 right-6 md:right-16 flex flex-col items-end gap-6 pointer-events-auto z-10"
+          className="absolute bottom-6 sm:bottom-10 md:bottom-16 right-4 sm:right-6 md:right-16 flex flex-col items-end gap-4 sm:gap-6 pointer-events-auto z-10"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1.3, duration: 0.8 }}
